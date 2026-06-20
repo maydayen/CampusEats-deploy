@@ -34,7 +34,7 @@
 import Navbar from '../components/Navbar.vue'
 import BottomNav from '../components/BottomNav.vue'
 import CartItem from '../components/CartItem.vue'
-import { useCartStore } from '../stores/cartStore'
+import { useCartStore } from '../stores/cartStore.js'
 
 const cartStore = useCartStore()
 </script>

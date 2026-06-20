@@ -31,7 +31,7 @@ import Navbar from '../components/Navbar.vue'
 import BottomNav from '../components/BottomNav.vue'
 import VendorCard from '../components/VendorCard.vue'
 import PromotionCard from '../components/PromotionCard.vue'
-import { useVendorStore } from '../stores/vendorStore'
+import { useVendorStore } from '../stores/vendorStore.js'
 
 const router = useRouter()
 const vendorStore = useVendorStore()

@@ -21,7 +21,7 @@
 import { computed, onMounted } from 'vue'
 import Navbar from '../components/Navbar.vue'
 import DashboardCard from '../components/DashboardCard.vue'
-import { useVendorStore } from '../stores/vendorStore'
+import { useVendorStore } from '../stores/vendorStore.js'
 
 const vendorStore = useVendorStore()
 

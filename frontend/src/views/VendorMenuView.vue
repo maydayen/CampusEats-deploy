@@ -26,8 +26,8 @@ import { useRoute } from 'vue-router'
 import Navbar from '../components/Navbar.vue'
 import BottomNav from '../components/BottomNav.vue'
 import MenuItemCard from '../components/MenuItemCard.vue'
-import { useVendorStore } from '../stores/vendorStore'
-import { useCartStore } from '../stores/cartStore'
+import { useVendorStore } from '../stores/vendorStore.js'
+import { useCartStore } from '../stores/cartStore.js'
 
 const route = useRoute()
 const vendorStore = useVendorStore()

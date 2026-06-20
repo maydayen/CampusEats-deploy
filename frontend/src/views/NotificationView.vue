@@ -20,8 +20,8 @@ import { computed, onMounted } from 'vue'
 import Navbar from '../components/Navbar.vue'
 import BottomNav from '../components/BottomNav.vue'
 import NotificationItem from '../components/NotificationItem.vue'
-import { useAuthStore } from '../stores/authStore'
-import { useNotificationStore } from '../stores/notificationStore'
+import { useAuthStore } from '../stores/authStore.js'
+import { useNotificationStore } from '../stores/notificationStore.js'
 
 const authStore = useAuthStore()
 const notificationStore = useNotificationStore()

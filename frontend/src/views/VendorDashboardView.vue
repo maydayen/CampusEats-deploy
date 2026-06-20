@@ -33,7 +33,7 @@
 import { computed, onMounted } from 'vue'
 import Navbar from '../components/Navbar.vue'
 import DashboardCard from '../components/DashboardCard.vue'
-import { useOrderStore } from '../stores/orderStore'
+import { useOrderStore } from '../stores/orderStore.js'
 
 const orderStore = useOrderStore()
 

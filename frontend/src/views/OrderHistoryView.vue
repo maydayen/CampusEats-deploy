@@ -19,8 +19,8 @@ import { computed, onMounted } from 'vue'
 import Navbar from '../components/Navbar.vue'
 import BottomNav from '../components/BottomNav.vue'
 import OrderCard from '../components/OrderCard.vue'
-import { useAuthStore } from '../stores/authStore'
-import { useOrderStore } from '../stores/orderStore'
+import { useAuthStore } from '../stores/authStore.js'
+import { useOrderStore } from '../stores/orderStore.js'
 
 const authStore = useAuthStore()
 const orderStore = useOrderStore()
