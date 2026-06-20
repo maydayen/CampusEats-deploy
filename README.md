@@ -12,7 +12,10 @@ This is the basic PR2 frontend framework for CampusEats.
 
 ## Project Setup
 
+To run the frontend:
+
 ```bash
+cd frontend
 npm install
 npm run dev
 ```
@@ -20,12 +23,28 @@ npm run dev
 ## Folder Structure
 
 ```text
-public/data/        Mock JSON data
-src/components/     Reusable UI components
-src/views/          Page views
-src/stores/         Pinia stores
-src/router/         Vue Router setup
-src/services/       Mock API helper
+CampusEats/
+│
+├── frontend/
+│   ├── public/
+│   │   └── data/              Mock JSON data for PR2 interim build
+│   │
+│   ├── src/
+│   │   ├── assets/            Images, icons, and styling assets
+│   │   ├── components/        Reusable UI components
+│   │   ├── views/             Page views
+│   │   ├── router/            Vue Router setup
+│   │   ├── stores/            Pinia state stores
+│   │   └── services/          Mock API helper functions
+│   │
+│   ├── index.html
+│   ├── package.json
+│   ├── package-lock.json
+│   └── vite.config.js
+│
+├── README.md
+└── .gitignore
+
 ```
 
 ## Current Demo Accounts
