@@ -6,7 +6,7 @@
     "opening_hours": "10:00 AM - 10:00 PM",
     "rating": 4.5,
     "status": "approved",
-    "image_url": "/images/lemon-tree.webp"
+    "image_url": "/images/lemon-tree.jpg"
   },
   {
     "vendor_id": 2,
@@ -19,11 +19,11 @@
   },
   {
     "vendor_id": 3,
-    "name": "Meranti Brew Cafe",
-    "location": "Arked Meranti",
+    "name": "Chill Cafe",
+    "location": "Student Mall",
     "opening_hours": "8:00 AM - 6:00 PM",
     "rating": 4.3,
     "status": "approved",
-    "image_url": "/images/cafe.webp"
+    "image_url": "/images/kacani.jpg"
   }
 ]
