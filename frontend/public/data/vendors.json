@@ -1,38 +1,29 @@
 [
   {
     "vendor_id": 1,
-    "owner_id": 2,
-    "name": "The Daily Grind",
-    "location": "Faculty of Computing Cafe",
-    "opening_hours": "8:00 AM - 6:00 PM",
+    "name": "Lemon Tree",
+    "location": "Arked Meranti",
+    "opening_hours": "10:00 AM - 10:00 PM",
+    "rating": 4.5,
     "status": "approved",
-    "rating": 4.8,
-    "prep_time": "15-20 min",
-    "image_url": "/images/daily-grind.jpg",
-    "created_at": "2026-04-01 09:30:00"
+    "image_url": "/images/lemon-tree.jpg"
   },
   {
     "vendor_id": 2,
-    "owner_id": 4,
-    "name": "The Commons Hall",
-    "location": "Student Union Building",
-    "opening_hours": "9:00 AM - 8:00 PM",
+    "name": "Nasi Kandar Osman",
+    "location": "N24",
+    "opening_hours": "10:00 AM - 12:00 AM",
+    "rating": 4.4,
     "status": "approved",
-    "rating": 4.5,
-    "prep_time": "8-12 min",
-    "image_url": "/images/commons-hall.jpg",
-    "created_at": "2026-04-01 09:40:00"
+    "image_url": "/images/osman.webp"
   },
   {
     "vendor_id": 3,
-    "owner_id": 5,
-    "name": "Library Chill Zone",
-    "location": "UTM Library",
-    "opening_hours": "10:00 AM - 7:00 PM",
-    "status": "pending",
-    "rating": 0,
-    "prep_time": "10-15 min",
-    "image_url": "/images/library-chill.jpg",
-    "created_at": "2026-04-01 09:50:00"
+    "name": "Chill Cafe",
+    "location": "Student Mall",
+    "opening_hours": "8:00 AM - 6:00 PM",
+    "rating": 4.3,
+    "status": "approved",
+    "image_url": "/images/kacani.jpg"
   }
 ]
