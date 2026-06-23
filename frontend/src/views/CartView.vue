@@ -2,7 +2,10 @@
   <main class="page bottom-space">
     <Navbar />
 
-    <h1 class="page-title">Cart</h1>
+    <div class="page-header">
+      <BackButton />
+      <h1 class="page-title">Cart</h1>
+    </div>
 
     <div v-if="cartStore.items.length === 0" class="empty-state">
       <span class="emoji">🛒</span>
@@ -63,6 +66,7 @@ import Navbar from '../components/Navbar.vue'
 import BottomNav from '../components/BottomNav.vue'
 import CartItem from '../components/CartItem.vue'
 import { useCartStore } from '../stores/cartStore.js'
+import BackButton from '../components/BackButton.vue'
 
 const cartStore = useCartStore()
 </script>
