@@ -45,7 +45,8 @@
     <div
       v-for="order in filteredOrders"
       :key="order.order_id"
-      class="card vendor-order-card"
+      class="card vendor-order-card clickable-order-card"
+      @click="goToOrderDetails(order.order_id)"
     >
       <div class="space-between">
         <div>
@@ -74,7 +75,8 @@
       <select
         v-model="order.status"
         class="input"
-        @change="orderStore.updateOrderStatus(order.order_id, order.status)"
+        @click.stop
+        @change.stop="orderStore.updateOrderStatus(order.order_id, order.status)"
       >
         <option value="placed">Placed</option>
         <option value="preparing">Preparing</option>
@@ -95,6 +97,7 @@ import Navbar from '../components/Navbar.vue'
 import BackButton from '../components/BackButton.vue'
 import DashboardCard from '../components/DashboardCard.vue'
 import { useOrderStore } from '../stores/orderStore'
+import { useRouter } from 'vue-router'
 
 const orderStore = useOrderStore()
 const statusFilter = ref('all')
@@ -134,4 +137,10 @@ const filteredOrders = computed(() => {
     return order.status === statusFilter.value
   })
 })
+
+const router = useRouter()
+
+function goToOrderDetails(orderId) {
+  router.push(`/vendor/orders/${orderId}`)
+}
 </script>

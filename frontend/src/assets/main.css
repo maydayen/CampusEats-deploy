@@ -1322,3 +1322,33 @@ a {
 .menu-search-box .input {
   margin-bottom: 8px;
 }
+
+/* ---------- Vendor Order Details ---------- */
+.vendor-order-item {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.vendor-order-item:last-child {
+  border-bottom: none;
+}
+
+.vendor-order-item p {
+  margin: 4px 0 0;
+}
+
+.vendor-note-box {
+  background: #fff7ed;
+  border: 1px solid #fed7aa;
+  border-radius: 14px;
+  padding: 12px;
+  margin-top: 12px;
+}
+
+.vendor-note-box p {
+  margin: 6px 0 0;
+  color: #374151;
+}
