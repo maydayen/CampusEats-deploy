@@ -65,21 +65,49 @@
     </div>
 
       <div class="card">
+        <h3>Vendor Information</h3>
+
+        <div v-if="vendor" class="order-vendor-box">
+            <img
+            :src="vendor.image_url || vendor.image || '/images/campuseats-logo.png'"
+            :alt="vendor.name"
+            class="order-vendor-image"
+            />
+
+            <div class="order-vendor-info">
+            <strong>{{ vendor.name }}</strong>
+            <p class="muted">{{ vendor.location }}</p>
+            <p class="muted">
+                ⭐ {{ vendor.rating || 'N/A' }} · {{ vendor.prep_time || 'N/A' }}
+            </p>
+            </div>
+        </div>
+
+        <div v-else class="order-vendor-box">
+            <img
+            src="/images/campuseats-logo.png"
+            alt="CampusEats Logo"
+            class="order-vendor-image"
+            />
+
+            <div class="order-vendor-info">
+            <strong>Vendor #{{ order.vendor_id }}</strong>
+            <p class="muted">Vendor information is not available.</p>
+            </div>
+        </div>
+      </div>
+
+        <div class="card">
         <h3>Pickup Information</h3>
 
         <div class="space-between summary-row">
-          <span>Pickup Time</span>
-          <strong>{{ order.pickup_at }}</strong>
-        </div>
-
-        <div class="space-between summary-row">
-          <span>Vendor ID</span>
-          <strong>#{{ order.vendor_id }}</strong>
+            <span>Pickup Time</span>
+            <strong>{{ order.pickup_at }}</strong>
         </div>
 
         <div v-if="order.note" class="summary-row">
-          <span class="muted">Note for Vendor</span>
-          <p style="margin: 6px 0 0;">{{ order.note }}</p>
+            <span class="muted">Note for Vendor</span>
+            <p style="margin: 6px 0 0;">{{ order.note }}</p>
         </div>
       </div>
 
@@ -203,6 +231,7 @@ onMounted(async () => {
   loading.value = true
 
   await orderStore.loadOrders()
+  await vendorStore.loadVendors()
   await vendorStore.loadMenuItems()
   orderItemsData.value = await getMockData('orderItems.json')
 
@@ -211,6 +240,14 @@ onMounted(async () => {
 
 const order = computed(() => {
   return orderStore.orders.find((item) => Number(item.order_id) === orderId)
+})
+
+const vendor = computed(() => {
+  if (!order.value) return null
+
+  return vendorStore.vendors.find((item) => {
+    return Number(item.vendor_id) === Number(order.value.vendor_id)
+  })
 })
 
 const orderItems = computed(() => {
