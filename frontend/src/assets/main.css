@@ -507,3 +507,37 @@ a {
 .logout-icon {
   line-height: 1;
 }
+
+/* ---------- Profile Page ---------- */
+.profile-card {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 18px;
+  padding: 24px 18px;
+  margin-bottom: 16px;
+  text-align: center;
+}
+
+.profile-avatar {
+  width: 86px;
+  height: 86px;
+  object-fit: contain;
+  margin-bottom: 12px;
+}
+
+.profile-card h2 {
+  margin: 6px 0;
+  color: #111827;
+}
+
+.profile-role {
+  display: inline-block;
+  margin-top: 8px;
+  padding: 5px 12px;
+  border-radius: 999px;
+  background: #fff7ed;
+  color: #c2410c;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: capitalize;
+}
