@@ -184,6 +184,17 @@
         </div>
       </div>
 
+      <div class="card">
+        <h3>Order Again</h3>
+        <p class="muted">
+            Add the same items from this order back into your cart.
+        </p>
+
+        <button class="btn" @click="handleReorder">
+            Reorder Items
+        </button>
+      </div>
+
       <div class="card" v-if="order.status === 'placed'">
         <h3>Cancel Order</h3>
         <p class="muted">
@@ -209,17 +220,20 @@
 
 <script setup>
 import { computed, onMounted, ref } from 'vue'
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import Navbar from '../components/Navbar.vue'
 import BottomNav from '../components/BottomNav.vue'
 import BackButton from '../components/BackButton.vue'
 import { useOrderStore } from '../stores/orderStore.js'
 import { useVendorStore } from '../stores/vendorStore.js'
 import { getMockData } from '../services/mockApi.js'
+import { useCartStore } from '../stores/cartStore.js'
 
 const route = useRoute()
+const router = useRouter()
 const orderStore = useOrderStore()
 const vendorStore = useVendorStore()
+const cartStore = useCartStore()
 
 const loading = ref(false)
 const orderItemsData = ref([])
@@ -333,5 +347,35 @@ function handleCancelOrder() {
   if (!confirmed) return
 
   orderStore.cancelOrder(order.value.order_id)
+}
+
+function handleReorder() {
+  if (!order.value || orderItems.value.length === 0) {
+    alert('No items available to reorder.')
+    return
+  }
+
+  cartStore.clearCart()
+
+  orderItems.value.forEach((item) => {
+    const menuItem = vendorStore.menuItems.find((menu) => {
+      return Number(menu.menu_item_id) === Number(item.menu_item_id)
+    })
+
+    if (!menuItem) return
+
+    const quantity = Number(item.quantity || 1)
+
+    for (let i = 0; i < quantity; i += 1) {
+      cartStore.addItem(menuItem)
+    }
+  })
+
+  if (cartStore.items.length === 0) {
+    alert('Some menu items are no longer available.')
+    return
+  }
+
+  router.push('/cart')
 }
 </script>
