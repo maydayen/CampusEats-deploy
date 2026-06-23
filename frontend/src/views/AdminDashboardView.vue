@@ -46,11 +46,19 @@
       :key="vendor.vendor_id"
       class="card admin-vendor-card"
     >
-      <div class="space-between">
-        <div>
-          <h3>{{ vendor.name }}</h3>
-          <p class="muted">{{ vendor.location }}</p>
-          <p class="muted">{{ vendor.opening_hours }}</p>
+      <div class="admin-vendor-header">
+        <div class="admin-vendor-main">
+          <img
+            :src="vendor.image_url || vendor.image || '/images/campuseats-logo.png'"
+            :alt="vendor.name"
+            class="admin-vendor-image"
+          />
+
+          <div>
+            <h3>{{ vendor.name }}</h3>
+            <p class="muted">{{ vendor.category || 'Food Vendor' }}</p>
+            <p class="muted">{{ vendor.location }}</p>
+          </div>
         </div>
 
         <span class="status-badge" :class="`vendor-status-${vendor.status}`">
@@ -58,21 +66,64 @@
         </span>
       </div>
 
-      <div class="admin-vendor-meta">
-        <span>⭐ {{ vendor.rating || 0 }}</span>
-        <span>⏱️ {{ vendor.prep_time || 'N/A' }}</span>
+      <div class="admin-detail-grid">
+        <div>
+          <span>Vendor ID</span>
+          <strong>#{{ vendor.vendor_id }}</strong>
+        </div>
+
+        <div>
+          <span>Owner ID</span>
+          <strong>#{{ vendor.owner_id || 'N/A' }}</strong>
+        </div>
+
+        <div>
+          <span>Opening Hours</span>
+          <strong>{{ vendor.opening_hours || 'N/A' }}</strong>
+        </div>
+
+        <div>
+          <span>Average Prep Time</span>
+          <strong>{{ vendor.prep_time || 'N/A' }}</strong>
+        </div>
+
+        <div>
+          <span>Rating</span>
+          <strong>⭐ {{ vendor.rating || 0 }}</strong>
+        </div>
+
+        <div>
+          <span>Registration Status</span>
+          <strong class="capitalize">{{ vendor.status }}</strong>
+        </div>
+      </div>
+
+      <div class="admin-verification-box">
+        <div>
+          <strong>Verification Checklist</strong>
+          <p class="muted">
+            Mock review details for PR2 vendor approval flow.
+          </p>
+        </div>
+
+        <ul>
+          <li>Business information provided</li>
+          <li>Campus location available</li>
+          <li>Opening hours submitted</li>
+          <li>Menu can be reviewed after approval</li>
+        </ul>
       </div>
 
       <div class="row action-row" v-if="vendor.status === 'pending'">
         <button class="btn" @click="vendorStore.approveVendor(vendor.vendor_id)">
-          Approve
+          Approve Vendor
         </button>
 
         <button
           class="btn secondary"
           @click="vendorStore.rejectVendor(vendor.vendor_id)"
         >
-          Reject
+          Reject Vendor
         </button>
       </div>
 
@@ -82,6 +133,14 @@
         @click="deactivateVendor(vendor.vendor_id)"
       >
         Deactivate Vendor
+      </button>
+
+      <button
+        v-else-if="vendor.status === 'deactivated'"
+        class="btn"
+        @click="reactivateVendor(vendor.vendor_id)"
+      >
+        Reactivate Vendor
       </button>
     </div>
   </main>
@@ -140,6 +199,14 @@ function deactivateVendor(vendorId) {
 
   if (vendor) {
     vendor.status = 'deactivated'
+  }
+}
+
+function reactivateVendor(vendorId) {
+  const vendor = vendorStore.vendors.find((item) => item.vendor_id === vendorId)
+
+  if (vendor) {
+    vendor.status = 'approved'
   }
 }
 </script>
