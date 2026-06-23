@@ -2,7 +2,10 @@
   <main class="page">
     <Navbar />
 
-    <h1 class="page-title">Menu Management</h1>
+    <div class="page-header">
+      <BackButton />
+      <h1 class="page-title">Menu Management</h1>
+    </div>
 
     <div class="card" v-for="item in vendorItems" :key="item.menu_item_id">
       <div class="space-between">
@@ -22,6 +25,7 @@
 <script setup>
 import { computed, onMounted } from 'vue'
 import Navbar from '../components/Navbar.vue'
+import BackButton from '../components/BackButton.vue'
 import { useVendorStore } from '../stores/vendorStore.js'
 
 const vendorStore = useVendorStore()

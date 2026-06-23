@@ -41,6 +41,7 @@
         v-for="order in filteredOrders"
         :key="order.order_id"
         :order="order"
+        @select="goToOrderDetails"
       />
     </template>
 
@@ -50,6 +51,7 @@
 
 <script setup>
 import { computed, onMounted, ref } from 'vue'
+import { useRouter } from 'vue-router'
 import Navbar from '../components/Navbar.vue'
 import BottomNav from '../components/BottomNav.vue'
 import BackButton from '../components/BackButton.vue'
@@ -63,6 +65,11 @@ const orderStore = useOrderStore()
 const statusFilter = ref('all')
 const loading = ref(false)
 const errorMessage = ref('')
+const router = useRouter()
+
+function goToOrderDetails(order) {
+  router.push(`/orders/${order.order_id}`)
+}
 
 onMounted(() => {
   loadOrderData()
