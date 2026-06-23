@@ -25,18 +25,44 @@
     </section>
 
     <template v-else>
-      <div class="card">
-        <div class="space-between">
-          <div>
-            <h3 style="margin: 0;">Order #{{ order.order_id }}</h3>
-            <p class="muted" style="margin: 4px 0 0;">{{ formattedDate }}</p>
-          </div>
+        <div class="card">
+            <div class="space-between">
+                <div>
+                    <h3 style="margin: 0;">Order #{{ order.order_id }}</h3>
+                    <p class="muted" style="margin: 4px 0 0;">{{ formattedDate }}</p>
+                </div>
 
-          <span class="status-badge" :class="`status-${order.status}`">
-            {{ order.status }}
-          </span>
+                <span class="status-badge" :class="`status-${order.status}`">
+                    {{ order.status }}
+                </span>
+            </div>
         </div>
-      </div>
+
+        <div class="card">
+            <h3>Order Status</h3>
+            <p class="muted">Track your pickup order progress.</p>
+
+            <div class="status-timeline">
+                <div
+                    v-for="step in statusSteps"
+                    :key="step.value"
+                    class="timeline-step"
+                    :class="{
+                    active: isStatusActive(step.value),
+                    current: order.status === step.value
+                }"
+            >
+                <div class="timeline-icon">
+                    {{ step.icon }}
+                </div>
+
+                <div class="timeline-content">
+                    <strong>{{ step.label }}</strong>
+                    <small>{{ step.description }}</small>
+                </div>
+            </div>
+        </div>
+    </div>
 
       <div class="card">
         <h3>Pickup Information</h3>
@@ -146,6 +172,33 @@ const orderItemsData = ref([])
 
 const orderId = Number(route.params.id)
 
+const statusSteps = [
+  {
+    value: 'placed',
+    label: 'Placed',
+    description: 'Your order has been received by the vendor.',
+    icon: '🧾'
+  },
+  {
+    value: 'preparing',
+    label: 'Preparing',
+    description: 'The vendor is preparing your food.',
+    icon: '👨‍🍳'
+  },
+  {
+    value: 'ready',
+    label: 'Ready',
+    description: 'Your food is ready for pickup.',
+    icon: '✅'
+  },
+  {
+    value: 'collected',
+    label: 'Collected',
+    description: 'The order has been collected.',
+    icon: '📦'
+  }
+]
+
 onMounted(async () => {
   loading.value = true
 
@@ -197,5 +250,13 @@ function itemTotal(item) {
   const quantity = Number(item.quantity || 0)
 
   return price * quantity
+}
+
+function isStatusActive(stepValue) {
+  const currentStatus = order.value?.status || 'placed'
+  const currentIndex = statusSteps.findIndex((step) => step.value === currentStatus)
+  const stepIndex = statusSteps.findIndex((step) => step.value === stepValue)
+
+  return stepIndex <= currentIndex
 }
 </script>
