@@ -2,7 +2,10 @@
   <main class="page bottom-space">
     <Navbar />
 
-    <h1 class="page-title">{{ vendor?.name || 'Vendor Menu' }}</h1>
+    <div class="page-header">
+      <BackButton />
+      <h1 class="page-title">{{ vendor?.name || 'Vendor Menu' }}</h1>
+    </div>
     <p style="margin: -8px 0 14px; color: var(--muted); font-size: 13px;" v-if="vendor">
       ★ {{ vendor.rating || 'New' }} · {{ vendor.prep_time }} · 📍 {{ vendor.location }}
     </p>
@@ -55,6 +58,7 @@ import BottomNav from '../components/BottomNav.vue'
 import MenuItemCard from '../components/MenuItemCard.vue'
 import { useVendorStore } from '../stores/vendorStore.js'
 import { useCartStore } from '../stores/cartStore.js'
+import BackButton from '../components/BackButton.vue'
 
 const route = useRoute()
 const vendorStore = useVendorStore()
