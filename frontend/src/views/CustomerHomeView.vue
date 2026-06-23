@@ -57,9 +57,19 @@ onMounted(async () => {
 })
 
 const filteredVendors = computed(() => {
+  const keyword = searchText.value.toLowerCase()
+
   return vendorStore.vendors.filter((vendor) => {
+    const name = vendor.name.toLowerCase()
+    const location = vendor.location.toLowerCase()
+    const category = vendor.category?.toLowerCase() || ''
+
     return vendor.status === 'approved' &&
-      vendor.name.toLowerCase().includes(searchText.value.toLowerCase())
+      (
+        name.includes(keyword) ||
+        location.includes(keyword) ||
+        category.includes(keyword)
+      )
   })
 })
 

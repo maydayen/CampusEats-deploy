@@ -1,15 +1,17 @@
 import { defineStore } from 'pinia'
-import { getMockData } from '../services/mockApi'
+import { getMockData } from '../services/mockApi.js'
 
 export const useOrderStore = defineStore('orders', {
   state: () => ({
     orders: [],
-    latestOrder: null
+    latestOrder: JSON.parse(sessionStorage.getItem('latestOrder')) || null,
+    sessionOrders: JSON.parse(sessionStorage.getItem('sessionOrders')) || []
   }),
 
   actions: {
     async loadOrders() {
-      this.orders = await getMockData('orders.json')
+      const mockOrders = await getMockData('orders.json')
+      this.orders = [...this.sessionOrders, ...mockOrders]
     },
 
     createOrder(orderData) {
@@ -20,15 +22,29 @@ export const useOrderStore = defineStore('orders', {
         created_at: new Date().toISOString()
       }
 
+      this.sessionOrders.unshift(newOrder)
       this.orders.unshift(newOrder)
       this.latestOrder = newOrder
+
+      sessionStorage.setItem('latestOrder', JSON.stringify(newOrder))
+      sessionStorage.setItem('sessionOrders', JSON.stringify(this.sessionOrders))
 
       return newOrder
     },
 
     updateOrderStatus(orderId, status) {
       const order = this.orders.find((item) => item.order_id === orderId)
-      if (order) order.status = status
+
+      if (order) {
+        order.status = status
+      }
+
+      const sessionOrder = this.sessionOrders.find((item) => item.order_id === orderId)
+
+      if (sessionOrder) {
+        sessionOrder.status = status
+        sessionStorage.setItem('sessionOrders', JSON.stringify(this.sessionOrders))
+      }
     }
   }
 })
