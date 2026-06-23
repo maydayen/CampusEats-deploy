@@ -1,37 +1,62 @@
 <template>
-  <div class="card row" style="align-items: flex-start;">
-    <div class="photo-thumb">{{ emoji }}</div>
+  <div class="card menu-item-card">
+    <div class="menu-image-box">
+      <img
+        v-if="item.image_url && !imageError"
+        :src="item.image_url"
+        :alt="item.name"
+        class="menu-item-image"
+        @error="imageError = true"
+      />
 
-    <div style="flex: 1; margin-left: 4px;">
-      <div class="space-between">
-        <h3 style="margin: 0;">{{ item.name }}</h3>
-        <strong>RM {{ item.price.toFixed(2) }}</strong>
+      <div v-else class="photo-thumb">
+        {{ emoji }}
       </div>
-      <p style="margin: 4px 0; color: var(--muted); font-size: 13px;">{{ item.description }}</p>
+    </div>
 
-      <div v-if="item.tags?.length" style="margin-bottom: 8px;">
-        <span v-for="tag in item.tags" :key="tag" class="tag">{{ tag }}</span>
+    <div class="menu-item-content">
+      <div class="space-between menu-title-row">
+        <h3>{{ item.name }}</h3>
+        <strong>RM {{ Number(item.price).toFixed(2) }}</strong>
       </div>
 
-      <p v-if="!item.in_stock" style="color: var(--danger); font-size: 13px; margin: 0;">
+      <p class="menu-description">
+        {{ item.description }}
+      </p>
+
+      <div v-if="item.tags?.length" class="tag-list">
+        <span v-for="tag in item.tags" :key="tag" class="tag">
+          {{ tag }}
+        </span>
+      </div>
+
+      <p v-if="!item.in_stock" class="out-stock">
         Out of stock
       </p>
 
-      <button v-else-if="quantity === 0" class="btn secondary" style="width: auto;" @click="$emit('add', item)">
+      <button
+        v-else-if="quantity === 0"
+        class="btn secondary add-cart-btn"
+        @click="$emit('add', item)"
+      >
         + Add to cart
       </button>
 
       <div v-else class="qty-control">
-        <button @click="cartStore.decreaseQuantity(item.menu_item_id)">−</button>
+        <button @click="cartStore.decreaseQuantity(item.menu_item_id)">
+          −
+        </button>
         <span>{{ quantity }}</span>
-        <button @click="cartStore.increaseQuantity(item.menu_item_id)">+</button>
+        <button @click="cartStore.increaseQuantity(item.menu_item_id)">
+          +
+        </button>
       </div>
     </div>
   </div>
 </template>
 
 <script setup>
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
 import { useCartStore } from '../stores/cartStore.js'
 
 const props = defineProps({
@@ -44,14 +69,25 @@ const props = defineProps({
 defineEmits(['add'])
 
 const cartStore = useCartStore()
+const imageError = ref(false)
 
 const quantity = computed(() => {
   const cartItem = cartStore.items.find((i) => i.menu_item_id === props.item.menu_item_id)
   return cartItem ? cartItem.quantity : 0
 })
 
-// Lightweight emoji placeholder per category until real menu photos exist.
 const EMOJI_BY_CATEGORY = {
+  Western: '🍗',
+  Burger: '🍔',
+  Pasta: '🍝',
+  Drinks: '🥤',
+  Mamak: '🫓',
+  Rice: '🍛',
+  Noodles: '🍜',
+  Sandwich: '🥪',
+  Wrap: '🌯',
+  Snacks: '🧁',
+  Pastry: '🥐',
   Coffee: '☕',
   Pastries: '🥐',
   Sandwiches: '🥪',

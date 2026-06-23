@@ -2,44 +2,44 @@
   {
     "menu_item_id": 1,
     "vendor_id": 1,
-    "name": "Garlic Rice with Crispy Breaded Chicken Chop",
-    "description": "Garlic rice served with crispy breaded chicken chop. Sauce options: teriyaki, cheesy, or BBQ.",
-    "price": 13.40,
+    "name": "Garlic Rice with Crispy Breaded Cheesy Chicken Chop",
+    "description": "Garlic rice served with crispy breaded cheesy chicken chop.",
+    "price": 13.4,
     "category": "Western",
-    "image_url": "/images/garlic-rice-chicken-chop.webp",
+    "image_url": "/images/menu/Lemon Tree/Garlic Rice With Crispy Breaded Cheesy Chicken Chop.webp",
     "in_stock": true,
     "sauce_options": ["Teriyaki", "Cheesy", "BBQ"]
   },
   {
     "menu_item_id": 2,
     "vendor_id": 1,
-    "name": "Spaghetti Aglio-Olio with Crispy Breaded Chicken Chop",
-    "description": "Spaghetti aglio-olio served with crispy breaded chicken chop. Sauce options: teriyaki, cheesy, or BBQ.",
-    "price": 13.40,
+    "name": "Spaghetti Aglio-Olio with Crispy Breaded Cheesy Chicken Chop",
+    "description": "Spaghetti aglio-olio served with crispy breaded cheesy chicken chop.",
+    "price": 13.4,
     "category": "Western",
-    "image_url": "/images/aglio-olio-chicken-chop.webp",
+    "image_url": "/images/menu/Lemon Tree/Spaghetti Aglio-Olio With Crispy Breaded Cheesy Chicken Chop.webp",
     "in_stock": true,
     "sauce_options": ["Teriyaki", "Cheesy", "BBQ"]
   },
   {
     "menu_item_id": 3,
     "vendor_id": 1,
-    "name": "Cheesy Chicken Burger",
-    "description": "Cheesy chicken burger with sauce options: teriyaki, cheesy, or Korean.",
-    "price": 15.90,
+    "name": "Cheesy Crispy Chicken Burger",
+    "description": "Crispy chicken burger served with cheese and sauce.",
+    "price": 15.9,
     "category": "Burger",
-    "image_url": "/images/cheesy-chicken-burger.webp",
+    "image_url": "/images/menu/Lemon Tree/Cheesy Crispy Chicken Burger.webp",
     "in_stock": true,
     "sauce_options": ["Teriyaki", "Cheesy", "Korean"]
   },
   {
     "menu_item_id": 4,
     "vendor_id": 1,
-    "name": "Spaghetti Aglio-Olio",
-    "description": "Classic aglio-olio pasta with garlic, herbs, and chili flakes.",
-    "price": 11.90,
+    "name": "Aglio-olio",
+    "description": "Classic aglio-olio pasta with garlic, herbs and chili flakes.",
+    "price": 11.9,
     "category": "Pasta",
-    "image_url": "/images/spaghetti-aglio-olio.webp",
+    "image_url": "/images/menu/Lemon Tree/Aglio-olio.webp",
     "in_stock": true
   },
   {
@@ -47,9 +47,9 @@
     "vendor_id": 1,
     "name": "Chicken Meatloaf Carbonara",
     "description": "Creamy carbonara pasta served with chicken meatloaf.",
-    "price": 21.90,
+    "price": 21.9,
     "category": "Pasta",
-    "image_url": "/images/chicken-meatloaf-carbonara.webp",
+    "image_url": "/images/menu/Lemon Tree/Chicken Meatloaf Carbonara.webp",
     "in_stock": true
   },
   {
@@ -57,19 +57,19 @@
     "vendor_id": 1,
     "name": "Seafood Marinara",
     "description": "Seafood pasta served with marinara sauce.",
-    "price": 32.00,
+    "price": 32.0,
     "category": "Pasta",
-    "image_url": "/images/seafood-marinara.webp",
+    "image_url": "/images/menu/Lemon Tree/Seafood Marinara.webp",
     "in_stock": true
   },
   {
     "menu_item_id": 7,
     "vendor_id": 1,
-    "name": "Lemonade",
+    "name": "Iced Lemonade",
     "description": "Cold refreshing lemonade.",
-    "price": 6.00,
+    "price": 6.0,
     "category": "Drinks",
-    "image_url": "/images/lemonade.webp",
+    "image_url": "/images/menu/Lemon Tree/Iced Lemonade.webp",
     "in_stock": true
   },
   {
@@ -77,20 +77,19 @@
     "vendor_id": 1,
     "name": "Sparkling Lemon Tea",
     "description": "Sparkling lemon tea served cold.",
-    "price": 10.00,
+    "price": 10.0,
     "category": "Drinks",
-    "image_url": "/images/sparkling-lemon-tea.webp",
+    "image_url": "/images/menu/Lemon Tree/Sparkling Lemon Tea.webp",
     "in_stock": true
   },
-
   {
     "menu_item_id": 9,
     "vendor_id": 2,
     "name": "Roti Canai",
     "description": "Classic mamak-style roti canai served with curry.",
-    "price": 1.50,
+    "price": 1.5,
     "category": "Mamak",
-    "image_url": "/images/roti-canai.webp",
+    "image_url": "/images/menu/Nasi Kandar Osman/Roti Canai.webp",
     "in_stock": true
   },
   {
@@ -98,9 +97,9 @@
     "vendor_id": 2,
     "name": "Roti Telur",
     "description": "Roti canai with egg, served with curry.",
-    "price": 3.00,
+    "price": 3.0,
     "category": "Mamak",
-    "image_url": "/images/roti-telur.webp",
+    "image_url": "/images/menu/Nasi Kandar Osman/Roti Telur.webp",
     "in_stock": true
   },
   {
@@ -108,39 +107,39 @@
     "vendor_id": 2,
     "name": "Roti Tisu",
     "description": "Thin and crispy sweet roti tisu.",
-    "price": 4.50,
+    "price": 4.5,
     "category": "Mamak",
-    "image_url": "/images/roti-tisu.webp",
+    "image_url": "/images/menu/Nasi Kandar Osman/Roti Tisu.jpg",
     "in_stock": true
   },
   {
     "menu_item_id": 12,
     "vendor_id": 2,
     "name": "Nasi Kandar Student Set",
-    "description": "Student nasi kandar set with rice, curry, vegetables, and chicken.",
-    "price": 7.50,
+    "description": "Student nasi kandar set with rice, curry, vegetables and chicken.",
+    "price": 7.5,
     "category": "Rice",
-    "image_url": "/images/nasi-kandar-student-set.webp",
+    "image_url": "/images/menu/Nasi Kandar Osman/Nasi Kandar Student Set.jpg",
     "in_stock": true
   },
   {
     "menu_item_id": 13,
     "vendor_id": 2,
     "name": "Nasi Kandar Set A",
-    "description": "Nasi kandar with mixed curry, vegetable, and fried chicken.",
-    "price": 9.50,
+    "description": "Nasi kandar with mixed curry, vegetables and fried chicken.",
+    "price": 9.5,
     "category": "Rice",
-    "image_url": "/images/nasi-kandar-set-a.webp",
+    "image_url": "/images/menu/Nasi Kandar Osman/Nasi Kandar Set A.jpg",
     "in_stock": true
   },
   {
     "menu_item_id": 14,
     "vendor_id": 2,
     "name": "Nasi Kandar Set B",
-    "description": "Nasi kandar with mixed curry, vegetable, and meat dish.",
-    "price": 11.00,
+    "description": "Nasi kandar with mixed curry, vegetables and meat dish.",
+    "price": 11.0,
     "category": "Rice",
-    "image_url": "/images/nasi-kandar-set-b.webp",
+    "image_url": "/images/menu/Nasi Kandar Osman/Nasi Kandar Set B.jpg",
     "in_stock": true
   },
   {
@@ -148,9 +147,9 @@
     "vendor_id": 2,
     "name": "Maggi Goreng",
     "description": "Mamak-style fried instant noodles with egg and vegetables.",
-    "price": 6.50,
+    "price": 6.5,
     "category": "Noodles",
-    "image_url": "/images/maggi-goreng.webp",
+    "image_url": "/images/menu/Nasi Kandar Osman/Maggi Goreng.webp",
     "in_stock": true
   },
   {
@@ -158,20 +157,19 @@
     "vendor_id": 2,
     "name": "Teh Ais",
     "description": "Classic iced milk tea.",
-    "price": 2.50,
+    "price": 2.5,
     "category": "Drinks",
-    "image_url": "/images/teh-ais.webp",
+    "image_url": "/images/menu/Nasi Kandar Osman/Teh Ais.jpg",
     "in_stock": true
   },
-
   {
     "menu_item_id": 17,
     "vendor_id": 3,
     "name": "Chicken Croissant Sandwich",
-    "description": "Croissant sandwich filled with chicken slices, lettuce, and mayo.",
-    "price": 9.90,
+    "description": "Croissant sandwich filled with chicken slices, lettuce and mayo.",
+    "price": 9.9,
     "category": "Sandwich",
-    "image_url": "/images/chicken-croissant-sandwich.webp",
+    "image_url": "/images/menu/Chill Cafe/Chicken Croissant Sandwich.jpg",
     "in_stock": true
   },
   {
@@ -179,19 +177,19 @@
     "vendor_id": 3,
     "name": "Creamy Mushroom Pasta",
     "description": "Creamy mushroom pasta with herbs.",
-    "price": 12.90,
+    "price": 12.9,
     "category": "Pasta",
-    "image_url": "/images/creamy-mushroom-pasta.webp",
+    "image_url": "/images/menu/Chill Cafe/Creamy Mushroom Pasta.jpg",
     "in_stock": true
   },
   {
     "menu_item_id": 19,
     "vendor_id": 3,
     "name": "Grilled Chicken Wrap",
-    "description": "Soft wrap filled with grilled chicken, vegetables, and sauce.",
-    "price": 10.90,
+    "description": "Soft wrap filled with grilled chicken, vegetables and sauce.",
+    "price": 10.9,
     "category": "Wrap",
-    "image_url": "/images/grilled-chicken-wrap.webp",
+    "image_url": "/images/menu/Chill Cafe/Grilled Chicken Wrap.jpg",
     "in_stock": true
   },
   {
@@ -199,9 +197,9 @@
     "vendor_id": 3,
     "name": "Chocolate Muffin",
     "description": "Soft chocolate muffin suitable for a quick snack.",
-    "price": 4.50,
+    "price": 4.5,
     "category": "Snacks",
-    "image_url": "/images/chocolate-muffin.webp",
+    "image_url": "/images/menu/Chill Cafe/Chocolate Muffin.jpg",
     "in_stock": true
   },
   {
@@ -209,9 +207,9 @@
     "vendor_id": 3,
     "name": "Butter Croissant",
     "description": "Freshly baked butter croissant.",
-    "price": 5.50,
+    "price": 5.5,
     "category": "Pastry",
-    "image_url": "/images/butter-croissant.webp",
+    "image_url": "/images/menu/Chill Cafe/Butter Croissant.jpg",
     "in_stock": true
   },
   {
@@ -219,9 +217,9 @@
     "vendor_id": 3,
     "name": "Iced Americano",
     "description": "Cold black coffee.",
-    "price": 6.00,
+    "price": 6.0,
     "category": "Drinks",
-    "image_url": "/images/iced-americano.webp",
+    "image_url": "/images/menu/Chill Cafe/Iced Americano.jpg",
     "in_stock": true
   },
   {
@@ -229,9 +227,9 @@
     "vendor_id": 3,
     "name": "Caramel Latte",
     "description": "Coffee latte with caramel syrup.",
-    "price": 8.50,
+    "price": 8.5,
     "category": "Drinks",
-    "image_url": "/images/caramel-latte.webp",
+    "image_url": "/images/menu/Chill Cafe/Caramel Latte.jpg",
     "in_stock": true
   },
   {
@@ -239,9 +237,9 @@
     "vendor_id": 3,
     "name": "Matcha Latte",
     "description": "Iced matcha latte with milk.",
-    "price": 8.00,
+    "price": 8.0,
     "category": "Drinks",
-    "image_url": "/images/matcha-latte.webp",
+    "image_url": "/images/menu/Chill Cafe/Matcha Latte.jpg",
     "in_stock": true
   }
 ]
