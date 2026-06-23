@@ -899,3 +899,83 @@ a {
     flex-direction: column;
   }
 }
+
+/* ---------- Loading/Error State ---------- */
+.loading-state,
+.error-state,
+.empty-state {
+  text-align: center;
+  padding: 28px 16px;
+}
+
+.loading-state .emoji,
+.error-state .emoji,
+.empty-state .emoji {
+  display: block;
+  font-size: 38px;
+  margin-bottom: 10px;
+}
+
+.loading-state h3,
+.error-state h3,
+.empty-state h3 {
+  margin: 8px 0;
+}
+
+.loading-state p,
+.error-state p,
+.empty-state p {
+  color: #6b7280;
+  font-size: 14px;
+  margin: 6px 0 16px;
+}
+
+.error-state {
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  border-radius: 16px;
+  margin-bottom: 16px;
+}
+
+.error-state h3 {
+  color: #b91c1c;
+}
+
+.loading-card {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+  padding: 16px;
+  margin-bottom: 12px;
+}
+
+.loading-line {
+  height: 12px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #eeeeee 25%, #f6f6f6 50%, #eeeeee 75%);
+  background-size: 200% 100%;
+  animation: loadingMove 1.2s infinite linear;
+  margin-bottom: 10px;
+}
+
+.loading-line.short {
+  width: 45%;
+}
+
+.loading-line.medium {
+  width: 70%;
+}
+
+.loading-line.long {
+  width: 100%;
+}
+
+@keyframes loadingMove {
+  from {
+    background-position: 200% 0;
+  }
+
+  to {
+    background-position: -200% 0;
+  }
+}
