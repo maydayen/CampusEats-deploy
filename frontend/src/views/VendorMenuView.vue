@@ -139,3 +139,43 @@ const filteredMenuItems = computed(() => {
   })
 })
 </script>
+
+<style scoped>
+.vendor-menu-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: 22px;
+  margin-bottom: 26px;
+}
+
+.vendor-info {
+  min-width: 0;
+}
+
+.vendor-name {
+  margin: 0 0 6px;
+  font-size: 26px;
+  line-height: 1.15;
+  color: #111827;
+}
+
+.vendor-subtitle {
+  margin: 0;
+  color: var(--muted);
+  font-size: 16px;
+  line-height: 1.4;
+}
+
+@media (max-width: 420px) {
+  .vendor-menu-header {
+    gap: 14px;
+    margin-top: 20px;
+    margin-bottom: 24px;
+  }
+
+  .vendor-name {
+    font-size: 24px;
+  }
+}
+</style>
