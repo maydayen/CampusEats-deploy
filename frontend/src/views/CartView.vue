@@ -4,27 +4,55 @@
 
     <h1 class="page-title">Cart</h1>
 
-    <p v-if="cartStore.items.length === 0">Your cart is empty.</p>
-
-    <CartItem
-      v-for="item in cartStore.items"
-      :key="item.menu_item_id"
-      :item="item"
-      @increase="cartStore.increaseQuantity"
-      @decrease="cartStore.decreaseQuantity"
-      @remove="cartStore.removeItem"
-    />
-
-    <div class="card">
-      <div class="space-between">
-        <strong>Subtotal</strong>
-        <strong>RM {{ cartStore.subtotal.toFixed(2) }}</strong>
-      </div>
+    <div v-if="cartStore.items.length === 0" class="empty-state">
+      <span class="emoji">🛒</span>
+      <h3>Your cart is empty</h3>
+      <p>Add food from a vendor menu before checkout.</p>
+      <button class="btn" @click="$router.push('/home')">
+        Browse Vendors
+      </button>
     </div>
 
-    <button class="btn" :disabled="cartStore.items.length === 0" @click="$router.push('/checkout')">
-      Checkout
-    </button>
+    <template v-else>
+      <CartItem
+        v-for="item in cartStore.items"
+        :key="item.menu_item_id"
+        :item="item"
+        @increase="cartStore.increaseQuantity"
+        @decrease="cartStore.decreaseQuantity"
+        @remove="cartStore.removeItem"
+      />
+
+      <div class="card">
+        <h3>Order Summary</h3>
+
+        <div class="space-between summary-row">
+          <span>Subtotal</span>
+          <span>RM {{ cartStore.subtotal.toFixed(2) }}</span>
+        </div>
+
+        <div class="space-between summary-row">
+          <span>Service Fee</span>
+          <span>RM {{ cartStore.serviceFee.toFixed(2) }}</span>
+        </div>
+
+        <div class="space-between summary-row">
+          <span>Tax 6%</span>
+          <span>RM {{ cartStore.taxAmount.toFixed(2) }}</span>
+        </div>
+
+        <hr />
+
+        <div class="space-between">
+          <strong>Total</strong>
+          <strong>RM {{ cartStore.total.toFixed(2) }}</strong>
+        </div>
+      </div>
+
+      <button class="btn" @click="$router.push('/checkout')">
+        Proceed to Checkout
+      </button>
+    </template>
 
     <BottomNav />
   </main>
