@@ -17,6 +17,8 @@
       <p><strong>Order ID:</strong> #{{ orderStore.latestOrder.order_id }}</p>
       <p><strong>Status:</strong> {{ orderStore.latestOrder.status }}</p>
       <p><strong>Pickup:</strong> {{ orderStore.latestOrder.pickup_at }}</p>
+      <p><strong>Payment:</strong> {{ orderStore.latestOrder.payment_label }}</p>
+      <p><strong>Payment Status:</strong> {{ orderStore.latestOrder.payment_status }}</p>
       <p><strong>Total:</strong> RM {{ Number(orderStore.latestOrder.total).toFixed(2) }}</p>
     </div>
 

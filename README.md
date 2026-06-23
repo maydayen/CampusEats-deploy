@@ -24,26 +24,70 @@ npm run dev
 
 ```text
 CampusEats/
-│
-├── frontend/
-│   ├── public/
-│   │   └── data/              Mock JSON data for PR2 interim build
-│   │
-│   ├── src/
-│   │   ├── assets/            Images, icons, and styling assets
-│   │   ├── components/        Reusable UI components
-│   │   ├── views/             Page views
-│   │   ├── router/            Vue Router setup
-│   │   ├── stores/            Pinia state stores
-│   │   └── services/          Mock API helper functions
-│   │
-│   ├── index.html
-│   ├── package.json
-│   ├── package-lock.json
-│   └── vite.config.js
-│
 ├── README.md
-└── .gitignore
+├── .gitignore
+└── frontend/
+    ├── index.html
+    ├── package.json
+    ├── package-lock.json
+    ├── vite.config.js
+    ├── public/
+    │   ├── data/
+    │   │   ├── users.json
+    │   │   ├── vendors.json
+    │   │   ├── menuItems.json
+    │   │   ├── orders.json
+    │   │   ├── orderItems.json
+    │   │   ├── reviews.json
+    │   │   ├── notifications.json
+    │   │   └── promotions.json
+    │   └── images/
+    │       ├── campuseats-logo.png
+    │       └── menu/
+    │           ├── Chill Cafe/
+    │           ├── Lemon Tree/
+    │           └── Nasi Kandar Osman/
+    └── src/
+        ├── assets/
+        │   ├── main.css
+        │   └── images/
+        ├── components/
+        │   ├── BackButton.vue
+        │   ├── BottomNav.vue
+        │   ├── Navbar.vue
+        │   ├── VendorCard.vue
+        │   ├── MenuItemCard.vue
+        │   ├── CartItem.vue
+        │   ├── OrderCard.vue
+        │   ├── PromotionCard.vue
+        │   ├── DashboardCard.vue
+        │   └── NotificationItem.vue
+        ├── router/
+        │   └── index.js
+        ├── services/
+        │   └── mockApi.js
+        ├── stores/
+        │   ├── authStore.js
+        │   ├── cartStore.js
+        │   ├── orderStore.js
+        │   ├── vendorStore.js
+        │   └── notificationStore.js
+        ├── views/
+        │   ├── LoginView.vue
+        │   ├── RegisterView.vue
+        │   ├── CustomerHomeView.vue
+        │   ├── VendorMenuView.vue
+        │   ├── CartView.vue
+        │   ├── CheckoutView.vue
+        │   ├── OrderConfirmationView.vue
+        │   ├── OrderHistoryView.vue
+        │   ├── ProfileView.vue
+        │   ├── NotificationView.vue
+        │   ├── VendorDashboardView.vue
+        │   ├── VendorMenuManagementView.vue
+        │   └── AdminDashboardView.vue
+        ├── App.vue
+        └── main.js
 
 ```
 

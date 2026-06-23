@@ -38,6 +38,33 @@
       </div>
 
       <div class="card">
+        <h3>Payment Method</h3>
+        <p class="muted">This is a mock payment selection for PR2.</p>
+
+        <div class="payment-options">
+          <label
+            v-for="method in paymentMethods"
+            :key="method.value"
+            class="payment-option"
+            :class="{ active: paymentMethod === method.value }"
+          >
+            <input
+              v-model="paymentMethod"
+              type="radio"
+              :value="method.value"
+            />
+
+            <span class="payment-icon">{{ method.icon }}</span>
+
+            <span>
+              <strong>{{ method.label }}</strong>
+              <small>{{ method.description }}</small>
+            </span>
+          </label>
+        </div>
+      </div>
+
+      <div class="card">
         <h3>Items</h3>
 
         <div
@@ -68,6 +95,11 @@
           <span>RM {{ cartStore.taxAmount.toFixed(2) }}</span>
         </div>
 
+        <div class="space-between summary-row">
+          <span>Payment Method</span>
+          <strong>{{ selectedPaymentLabel }}</strong>
+        </div>
+
         <hr />
 
         <div class="space-between">
@@ -76,7 +108,11 @@
         </div>
       </div>
 
-      <button class="btn" :disabled="!pickupSlot || placingOrder" @click="placeOrder">
+      <button
+        class="btn"
+        :disabled="!pickupSlot || !paymentMethod || placingOrder"
+        @click="placeOrder"
+      >
         {{ placingOrder ? 'Placing Order...' : 'Place Order' }}
       </button>
     </template>
@@ -84,13 +120,13 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import Navbar from '../components/Navbar.vue'
+import BackButton from '../components/BackButton.vue'
 import { useAuthStore } from '../stores/authStore.js'
 import { useCartStore } from '../stores/cartStore.js'
 import { useOrderStore } from '../stores/orderStore.js'
-import BackButton from '../components/BackButton.vue'
 
 const router = useRouter()
 const authStore = useAuthStore()
@@ -99,10 +135,37 @@ const orderStore = useOrderStore()
 
 const pickupSlot = ref('ASAP - 15 mins')
 const note = ref('')
+const paymentMethod = ref('cash')
 const placingOrder = ref(false)
 
+const paymentMethods = [
+  {
+    value: 'cash',
+    label: 'Cash at Pickup',
+    description: 'Pay directly to vendor when collecting food.',
+    icon: '💵'
+  },
+  {
+    value: 'ewallet',
+    label: 'E-Wallet',
+    description: 'Mock Touch n Go / GrabPay style payment.',
+    icon: '📱'
+  },
+  {
+    value: 'card',
+    label: 'Debit / Credit Card',
+    description: 'Mock card payment for PR2 demo.',
+    icon: '💳'
+  }
+]
+
+const selectedPaymentLabel = computed(() => {
+  const selected = paymentMethods.find((method) => method.value === paymentMethod.value)
+  return selected ? selected.label : '-'
+})
+
 function placeOrder() {
-  if (cartStore.items.length === 0 || !pickupSlot.value) return
+  if (cartStore.items.length === 0 || !pickupSlot.value || !paymentMethod.value) return
 
   placingOrder.value = true
 
@@ -115,6 +178,9 @@ function placeOrder() {
       tax_amount: cartStore.taxAmount,
       total: cartStore.total,
       pickup_at: pickupSlot.value,
+      payment_method: paymentMethod.value,
+      payment_label: selectedPaymentLabel.value,
+      payment_status: paymentMethod.value === 'cash' ? 'pending' : 'paid_mock',
       note: note.value,
       items: cartStore.items.map((item) => ({
         menu_item_id: item.menu_item_id,
