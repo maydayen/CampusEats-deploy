@@ -1,5 +1,5 @@
 <template>
-  <div class="card order-card">
+  <div class="card order-card clickable-order-card" @click="$emit('select', order)">
     <div class="order-card-header">
       <div>
         <h3>Order #{{ order.order_id }}</h3>
@@ -56,6 +56,8 @@ const props = defineProps({
     required: true
   }
 })
+
+defineEmits(['select'])
 
 const statusSteps = ['placed', 'preparing', 'ready', 'collected']
 
