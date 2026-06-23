@@ -45,6 +45,15 @@ export const useOrderStore = defineStore('orders', {
         sessionOrder.status = status
         sessionStorage.setItem('sessionOrders', JSON.stringify(this.sessionOrders))
       }
+    },
+
+    cancelOrder(orderId) {
+      this.updateOrderStatus(orderId, 'cancelled')
+
+      if (this.latestOrder && Number(this.latestOrder.order_id) === Number(orderId)) {
+        this.latestOrder.status = 'cancelled'
+        sessionStorage.setItem('latestOrder', JSON.stringify(this.latestOrder))
+      }
     }
   }
 })

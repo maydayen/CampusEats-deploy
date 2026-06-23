@@ -1179,3 +1179,39 @@ a {
   margin: 3px 0;
   line-height: 1.4;
 }
+
+/* ---------- Cancel Order ---------- */
+.danger-btn {
+  background: #dc2626;
+  color: #ffffff;
+}
+
+.danger-btn:hover {
+  background: #b91c1c;
+}
+
+.cancelled-box {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  color: #991b1b;
+  border-radius: 16px;
+  padding: 14px;
+  margin-bottom: 14px;
+}
+
+.cancelled-box .emoji {
+  font-size: 24px;
+}
+
+.cancelled-box strong {
+  display: block;
+  margin-bottom: 4px;
+}
+
+.cancelled-box p {
+  margin: 0;
+  font-size: 14px;
+}

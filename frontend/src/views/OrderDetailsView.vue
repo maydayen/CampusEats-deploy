@@ -62,6 +62,14 @@
                 </div>
             </div>
         </div>
+
+        <div v-if="order.status === 'cancelled'" class="cancelled-box">
+            <span class="emoji">❌</span>
+            <div>
+                <strong>Order Cancelled</strong>
+                <p>This order has been cancelled and will not be prepared.</p>
+            </div>
+        </div>
     </div>
 
       <div class="card">
@@ -174,6 +182,24 @@
           <strong>Total</strong>
           <strong>RM {{ Number(order.total || 0).toFixed(2) }}</strong>
         </div>
+      </div>
+
+      <div class="card" v-if="order.status === 'placed'">
+        <h3>Cancel Order</h3>
+        <p class="muted">
+            You can cancel this order only before the vendor starts preparing it.
+        </p>
+
+        <button class="btn danger-btn" @click="handleCancelOrder">
+            Cancel Order
+        </button>
+      </div>
+
+      <div class="card" v-else-if="order.status !== 'cancelled'">
+        <h3>Cancel Order</h3>
+        <p class="muted">
+            This order can no longer be cancelled because it is already {{ order.status }}.
+        </p>
       </div>
     </template>
 
@@ -290,10 +316,22 @@ function itemTotal(item) {
 }
 
 function isStatusActive(stepValue) {
+  if (order.value?.status === 'cancelled') {
+    return false
+  }
+
   const currentStatus = order.value?.status || 'placed'
   const currentIndex = statusSteps.findIndex((step) => step.value === currentStatus)
   const stepIndex = statusSteps.findIndex((step) => step.value === stepValue)
 
   return stepIndex <= currentIndex
+}
+
+function handleCancelOrder() {
+  const confirmed = window.confirm('Are you sure you want to cancel this order?')
+
+  if (!confirmed) return
+
+  orderStore.cancelOrder(order.value.order_id)
 }
 </script>
