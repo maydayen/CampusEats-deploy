@@ -2,7 +2,10 @@
   <main class="page">
     <Navbar />
 
-    <h1 class="page-title">Checkout</h1>
+    <div class="page-header">
+      <BackButton />
+      <h1 class="page-title">Checkout</h1>
+    </div>
 
     <div v-if="cartStore.items.length === 0" class="empty-state">
       <span class="emoji">🛒</span>
@@ -87,6 +90,7 @@ import Navbar from '../components/Navbar.vue'
 import { useAuthStore } from '../stores/authStore.js'
 import { useCartStore } from '../stores/cartStore.js'
 import { useOrderStore } from '../stores/orderStore.js'
+import BackButton from '../components/BackButton.vue'
 
 const router = useRouter()
 const authStore = useAuthStore()
