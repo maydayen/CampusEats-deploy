@@ -825,6 +825,12 @@ a {
   margin-bottom: 16px;
 }
 
+@media (min-width: 768px) {
+  .dashboard-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
 .dashboard-grid .card {
   margin-bottom: 0;
 }
@@ -1593,4 +1599,41 @@ a {
     width: 64px;
     height: 64px;
   }
+}
+
+/* ---------- Platform Analytics ---------- */
+.admin-analytics-card h3 {
+  margin: 0 0 4px;
+}
+
+.analytics-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 14px;
+  font-size: 14px;
+}
+
+.analytics-row span {
+  color: #6b7280;
+}
+
+.analytics-row strong {
+  color: #c2410c;
+}
+
+.analytics-bar {
+  width: 100%;
+  height: 10px;
+  background: #f3f4f6;
+  border-radius: 999px;
+  overflow: hidden;
+  margin-top: 8px;
+}
+
+.analytics-bar-fill {
+  height: 100%;
+  background: #f97316;
+  border-radius: 999px;
+  transition: width 0.3s ease;
 }

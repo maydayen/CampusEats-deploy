@@ -11,10 +11,45 @@
     </div>
 
     <div class="dashboard-grid">
+      <DashboardCard label="Total Orders" :value="orderStore.orders.length" />
+      <DashboardCard label="Active Orders" :value="activeOrders.length" />
+      <DashboardCard label="Completed Orders" :value="completedOrders.length" />
+      <DashboardCard label="Platform Sales" :value="`RM ${platformSales.toFixed(2)}`" />
+      <DashboardCard label="Average Order" :value="`RM ${averageOrderValue.toFixed(2)}`" />
+      <DashboardCard label="Total Vendors" :value="vendorStore.vendors.length" />
       <DashboardCard label="Pending Vendors" :value="pendingVendors.length" />
       <DashboardCard label="Approved Vendors" :value="approvedVendors.length" />
-      <DashboardCard label="Total Vendors" :value="vendorStore.vendors.length" />
-      <DashboardCard label="Platform Sales" :value="`RM ${platformSales.toFixed(2)}`" />
+    </div>
+
+    <div class="card admin-analytics-card">
+      <h3>Platform Overview</h3>
+      <p class="muted">
+        Summary of CampusEats ordering activity and vendor registration status.
+      </p>
+
+      <div class="analytics-row">
+        <span>Order Completion Rate</span>
+        <strong>{{ completionRate }}%</strong>
+      </div>
+
+      <div class="analytics-bar">
+        <div
+          class="analytics-bar-fill"
+          :style="{ width: `${completionRate}%` }"
+        ></div>
+      </div>
+
+      <div class="analytics-row">
+        <span>Vendor Approval Rate</span>
+        <strong>{{ approvalRate }}%</strong>
+      </div>
+
+      <div class="analytics-bar">
+        <div
+          class="analytics-bar-fill"
+          :style="{ width: `${approvalRate}%` }"
+        ></div>
+      </div>
     </div>
 
     <div class="card">
@@ -177,6 +212,42 @@ const platformSales = computed(() => {
   return orderStore.orders.reduce((sum, order) => {
     return sum + Number(order.total || 0)
   }, 0)
+})
+
+const activeOrders = computed(() => {
+  return orderStore.orders.filter((order) => {
+    return order.status !== 'collected' && order.status !== 'cancelled'
+  })
+})
+
+const completedOrders = computed(() => {
+  return orderStore.orders.filter((order) => {
+    return order.status === 'collected'
+  })
+})
+
+const averageOrderValue = computed(() => {
+  if (orderStore.orders.length === 0) {
+    return 0
+  }
+
+  return platformSales.value / orderStore.orders.length
+})
+
+const completionRate = computed(() => {
+  if (orderStore.orders.length === 0) {
+    return 0
+  }
+
+  return Math.round((completedOrders.value.length / orderStore.orders.length) * 100)
+})
+
+const approvalRate = computed(() => {
+  if (vendorStore.vendors.length === 0) {
+    return 0
+  }
+
+  return Math.round((approvedVendors.value.length / vendorStore.vendors.length) * 100)
 })
 
 const filteredVendors = computed(() => {
