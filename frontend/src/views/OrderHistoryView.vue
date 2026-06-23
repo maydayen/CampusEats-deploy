@@ -2,7 +2,10 @@
   <main class="page bottom-space">
     <Navbar />
 
-    <h1 class="page-title">Order History</h1>
+    <div class="page-header">
+      <BackButton />
+      <h1 class="page-title">Order History</h1>
+    </div>
 
     <select v-model="statusFilter" class="input">
       <option value="all">All Orders</option>
@@ -32,6 +35,7 @@
 import { computed, onMounted, ref } from 'vue'
 import Navbar from '../components/Navbar.vue'
 import BottomNav from '../components/BottomNav.vue'
+import BackButton from '../components/BackButton.vue'
 import OrderCard from '../components/OrderCard.vue'
 import { useAuthStore } from '../stores/authStore.js'
 import { useOrderStore } from '../stores/orderStore.js'
