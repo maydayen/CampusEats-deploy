@@ -12,8 +12,7 @@
     "menu_item_id": 3,
     "quantity": 1,
     "unit_price": 8.95
-  },
-  {
+  },  {
     "order_item_id": 3,
     "order_id": 2,
     "menu_item_id": 4,
@@ -26,5 +25,12 @@
     "menu_item_id": 5,
     "quantity": 1,
     "unit_price": 9.0
+  },
+  {
+    "order_item_id": 17,
+    "order_id": 3,
+    "menu_item_id": 5,
+    "quantity": 1,
+    "unit_price": 9.90
   }
 ]
