@@ -5,13 +5,28 @@ export const useOrderStore = defineStore('orders', {
   state: () => ({
     orders: [],
     latestOrder: JSON.parse(sessionStorage.getItem('latestOrder')) || null,
-    sessionOrders: JSON.parse(sessionStorage.getItem('sessionOrders')) || []
+    sessionOrders: JSON.parse(sessionStorage.getItem('sessionOrders')) || [],
+    updatedStatuses: JSON.parse(sessionStorage.getItem('updatedStatuses')) || {}
   }),
 
   actions: {
     async loadOrders() {
       const mockOrders = await getMockData('orders.json')
-      this.orders = [...this.sessionOrders, ...mockOrders]
+
+      const mergedOrders = [...this.sessionOrders, ...mockOrders]
+
+      this.orders = mergedOrders.map((order) => {
+        const savedStatus = this.updatedStatuses[order.order_id]
+
+        if (savedStatus) {
+          return {
+            ...order,
+            status: savedStatus
+          }
+        }
+
+        return order
+      })
     },
 
     createOrder(orderData) {
@@ -33,17 +48,29 @@ export const useOrderStore = defineStore('orders', {
     },
 
     updateOrderStatus(orderId, status) {
-      const order = this.orders.find((item) => item.order_id === orderId)
+      const order = this.orders.find((item) => {
+        return Number(item.order_id) === Number(orderId)
+      })
 
       if (order) {
         order.status = status
       }
 
-      const sessionOrder = this.sessionOrders.find((item) => item.order_id === orderId)
-
+      const sessionOrder = this.sessionOrders.find((item) => {
+        return Number(item.order_id) === Number(orderId)
+      })
+      
       if (sessionOrder) {
         sessionOrder.status = status
         sessionStorage.setItem('sessionOrders', JSON.stringify(this.sessionOrders))
+      }
+
+      this.updatedStatuses[orderId] = status
+      sessionStorage.setItem('updatedStatuses', JSON.stringify(this.updatedStatuses))
+
+      if (this.latestOrder && Number(this.latestOrder.order_id) === Number(orderId)) {
+        this.latestOrder.status = status
+        sessionStorage.setItem('latestOrder', JSON.stringify(this.latestOrder))
       }
     },
 
