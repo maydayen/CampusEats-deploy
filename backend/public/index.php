@@ -6,8 +6,8 @@ use Dotenv\Dotenv;
 require __DIR__ . '/../vendor/autoload.php';
 require __DIR__ . '/../src/db.php';
 
-$dotenv = Dotenv::createImmutable(__DIR__ . '/..');
-$dotenv->load();
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/../');
+$dotenv->safeLoad();
 
 $app = AppFactory::create();
 
