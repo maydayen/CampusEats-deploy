@@ -1,53 +1,31 @@
 import { defineStore } from 'pinia'
-import { getMockData } from '../services/mockApi.js'
+import { getMockData, createOrderApi, updateOrderStatusApi } from '../services/mockApi.js'
 
 export const useOrderStore = defineStore('orders', {
   state: () => ({
     orders: [],
-    latestOrder: JSON.parse(sessionStorage.getItem('latestOrder')) || null,
-    sessionOrders: JSON.parse(sessionStorage.getItem('sessionOrders')) || [],
-    updatedStatuses: JSON.parse(sessionStorage.getItem('updatedStatuses')) || {}
+    latestOrder: JSON.parse(sessionStorage.getItem('latestOrder')) || null
   }),
 
   actions: {
     async loadOrders() {
-      const mockOrders = await getMockData('orders.json')
-
-      const mergedOrders = [...this.sessionOrders, ...mockOrders]
-
-      this.orders = mergedOrders.map((order) => {
-        const savedStatus = this.updatedStatuses[order.order_id]
-
-        if (savedStatus) {
-          return {
-            ...order,
-            status: savedStatus
-          }
-        }
-
-        return order
-      })
+      this.orders = await getMockData('orders.json')
     },
 
-    createOrder(orderData) {
-      const newOrder = {
-        ...orderData,
-        order_id: Date.now(),
-        status: 'placed',
-        created_at: new Date().toISOString()
-      }
+    async createOrder(orderData) {
+      const newOrder = await createOrderApi(orderData)
 
-      this.sessionOrders.unshift(newOrder)
-      this.orders.unshift(newOrder)
       this.latestOrder = newOrder
+      this.orders.unshift(newOrder)
 
       sessionStorage.setItem('latestOrder', JSON.stringify(newOrder))
-      sessionStorage.setItem('sessionOrders', JSON.stringify(this.sessionOrders))
 
       return newOrder
     },
 
-    updateOrderStatus(orderId, status) {
+    async updateOrderStatus(orderId, status) {
+      const result = await updateOrderStatusApi(orderId, status)
+
       const order = this.orders.find((item) => {
         return Number(item.order_id) === Number(orderId)
       })
@@ -56,31 +34,16 @@ export const useOrderStore = defineStore('orders', {
         order.status = status
       }
 
-      const sessionOrder = this.sessionOrders.find((item) => {
-        return Number(item.order_id) === Number(orderId)
-      })
-      
-      if (sessionOrder) {
-        sessionOrder.status = status
-        sessionStorage.setItem('sessionOrders', JSON.stringify(this.sessionOrders))
-      }
-
-      this.updatedStatuses[orderId] = status
-      sessionStorage.setItem('updatedStatuses', JSON.stringify(this.updatedStatuses))
-
       if (this.latestOrder && Number(this.latestOrder.order_id) === Number(orderId)) {
         this.latestOrder.status = status
         sessionStorage.setItem('latestOrder', JSON.stringify(this.latestOrder))
       }
+
+      return result
     },
 
-    cancelOrder(orderId) {
-      this.updateOrderStatus(orderId, 'cancelled')
-
-      if (this.latestOrder && Number(this.latestOrder.order_id) === Number(orderId)) {
-        this.latestOrder.status = 'cancelled'
-        sessionStorage.setItem('latestOrder', JSON.stringify(this.latestOrder))
-      }
+    async cancelOrder(orderId) {
+      await this.updateOrderStatus(orderId, 'cancelled')
     }
   }
 })

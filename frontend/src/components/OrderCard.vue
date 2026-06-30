@@ -14,7 +14,17 @@
     <div class="order-card-body">
       <div class="order-info-row">
         <span>Pickup Time</span>
-        <strong>{{ order.pickup_at }}</strong>
+        <strong>{{ order.pickup_at || '-' }}</strong>
+      </div>
+
+      <div class="order-info-row">
+        <span>Payment Method</span>
+        <strong>{{ paymentMethodText }}</strong>
+      </div>
+
+      <div class="order-info-row">
+        <span>Payment Status</span>
+        <strong>{{ paymentStatusText }}</strong>
       </div>
 
       <div class="order-info-row">
@@ -70,6 +80,38 @@ const statusClass = computed(() => {
   return `status-${props.order.status || 'placed'}`
 })
 
+const paymentMethodText = computed(() => {
+  if (props.order.payment_label) {
+    return props.order.payment_label
+  }
+
+  if (props.order.payment_method === 'cash') {
+    return 'Cash at Pickup'
+  }
+
+  if (props.order.payment_method === 'ewallet') {
+    return 'E-Wallet'
+  }
+
+  if (props.order.payment_method === 'card') {
+    return 'Debit / Credit Card'
+  }
+
+  return '-'
+})
+
+const paymentStatusText = computed(() => {
+  if (props.order.payment_status === 'paid_mock') {
+    return 'Paid'
+  }
+
+  if (props.order.payment_status === 'pending') {
+    return 'Pending'
+  }
+
+  return props.order.payment_status || '-'
+})
+
 const formattedDate = computed(() => {
   if (!props.order.created_at) {
     return 'Recently placed'
@@ -87,6 +129,10 @@ const formattedDate = computed(() => {
 function isStepActive(step) {
   const currentIndex = statusSteps.indexOf(props.order.status)
   const stepIndex = statusSteps.indexOf(step)
+
+  if (currentIndex === -1) {
+    return false
+  }
 
   return stepIndex <= currentIndex
 }

@@ -103,4 +103,43 @@ $app->put('/api/notifications/{id}/read', function ($request, $response, $args) 
     return $response->withHeader('Content-Type', 'application/json');
 });
 
+$app->get('/api/orders', function ($request, $response) {
+    $db = getDB();
+
+    $stmt = $db->query("
+        SELECT 
+            o.*,
+            u.name AS customer_name,
+            v.name AS vendor_name
+        FROM orders o
+        JOIN users u ON o.user_id = u.user_id
+        JOIN vendors v ON o.vendor_id = v.vendor_id
+        ORDER BY o.created_at DESC
+    ");
+
+    $data = $stmt->fetchAll();
+
+    $response->getBody()->write(json_encode($data));
+    return $response->withHeader('Content-Type', 'application/json');
+});
+
+$app->get('/api/order-items', function ($request, $response) {
+    $db = getDB();
+
+    $stmt = $db->query("
+        SELECT 
+            oi.*,
+            mi.name,
+            mi.image_url
+        FROM order_items oi
+        JOIN menu_items mi ON oi.menu_item_id = mi.menu_item_id
+        ORDER BY oi.order_item_id ASC
+    ");
+
+    $data = $stmt->fetchAll();
+
+    $response->getBody()->write(json_encode($data));
+    return $response->withHeader('Content-Type', 'application/json');
+});
+
 $app->run();

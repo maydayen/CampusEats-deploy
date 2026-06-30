@@ -90,7 +90,7 @@ async function loadOrderData() {
 
 const customerOrders = computed(() => {
   return orderStore.orders.filter((order) => {
-    return order.user_id === authStore.currentUser.user_id
+    return Number(order.user_id) === Number(authStore.currentUser?.user_id)
   })
 })
 
