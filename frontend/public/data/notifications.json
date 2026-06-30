@@ -5,7 +5,7 @@
     "order_id": 1,
     "promotion_id": null,
     "title": "Order Ready",
-    "message": "Your order from The Daily Grind is ready for pickup.",
+    "message": "Your order from Lemon Tree is ready for pickup.",
     "type": "order_ready",
     "is_read": false,
     "created_at": "2026-04-08 12:25:00"
