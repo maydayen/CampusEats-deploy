@@ -129,7 +129,7 @@
 
         <div class="space-between summary-row">
           <span>Payment Status</span>
-          <strong>{{ order.payment_status || '-' }}</strong>
+          <strong>{{ formatPaymentStatus(order.payment_status) }}</strong>
         </div>
       </div>
 
@@ -202,7 +202,7 @@
 
             <div class="receipt-row">
             <span>Payment Status</span>
-            <strong>{{ order.payment_status || '-' }}</strong>
+            <strong>{{ formatPaymentStatus(order.payment_status) }}</strong>
             </div>
         </div>
 
@@ -513,6 +513,12 @@ function handleReorder() {
   }
 
   router.push('/cart')
+}
+
+function formatPaymentStatus(status) {
+  if (status === 'paid_mock') return 'Paid'
+  if (status === 'pending') return 'Pending'
+  return status || '-'
 }
 
 function submitReview() {

@@ -23,11 +23,13 @@
 
         <select v-model="pickupSlot" class="input">
           <option disabled value="">Select pickup slot</option>
-          <option>ASAP - 15 mins</option>
-          <option>12:30 PM</option>
-          <option>12:45 PM</option>
-          <option>01:00 PM</option>
-          <option>01:15 PM</option>
+          <option
+            v-for="option in pickupOptions"
+            :key="option.value"
+            :value="option.value"
+          >
+            {{ option.label }}
+          </option>
         </select>
 
         <textarea
@@ -133,7 +135,7 @@ const authStore = useAuthStore()
 const cartStore = useCartStore()
 const orderStore = useOrderStore()
 
-const pickupSlot = ref('ASAP - 15 mins')
+const pickupSlot = ref('')
 const note = ref('')
 const paymentMethod = ref('cash')
 const placingOrder = ref(false)
@@ -162,6 +164,36 @@ const paymentMethods = [
 const selectedPaymentLabel = computed(() => {
   const selected = paymentMethods.find((method) => method.value === paymentMethod.value)
   return selected ? selected.label : '-'
+})
+
+function formatForMySQL(date) {
+  const year = date.getFullYear()
+  const month = String(date.getMonth() + 1).padStart(2, '0')
+  const day = String(date.getDate()).padStart(2, '0')
+  const hour = String(date.getHours()).padStart(2, '0')
+  const minute = String(date.getMinutes()).padStart(2, '0')
+
+  return `${year}-${month}-${day} ${hour}:${minute}:00`
+}
+
+function formatDisplayTime(date) {
+  return date.toLocaleTimeString([], {
+    hour: '2-digit',
+    minute: '2-digit'
+  })
+}
+
+const pickupOptions = computed(() => {
+  const now = new Date()
+
+  return [15, 30, 45, 60].map((minutes) => {
+    const pickupTime = new Date(now.getTime() + minutes * 60000)
+
+    return {
+      label: `${formatDisplayTime(pickupTime)} (${minutes} min)`,
+      value: formatForMySQL(pickupTime)
+    }
+  })
 })
 
 async function placeOrder() {

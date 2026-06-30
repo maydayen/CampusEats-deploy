@@ -164,9 +164,13 @@ $app->post('/api/orders', function ($request, $response) {
                 service_fee,
                 tax_amount,
                 total,
-                pickup_at
+                pickup_at,
+                payment_method,
+                payment_label,
+                payment_status,
+                note
             )
-            VALUES (?, ?, 'placed', ?, ?, ?, ?, ?)
+            VALUES (?, ?, 'placed', ?, ?, ?, ?, ?, ?, ?, ?, ?)
         ");
 
         $stmt->execute([
@@ -176,7 +180,11 @@ $app->post('/api/orders', function ($request, $response) {
             $serviceFee,
             $taxAmount,
             $total,
-            $pickupAt
+            $pickupAt,
+            $data['payment_method'] ?? null,
+            $data['payment_label'] ?? null,
+            $data['payment_status'] ?? null,
+            $data['note'] ?? null
         ]);
 
         $orderId = $db->lastInsertId();

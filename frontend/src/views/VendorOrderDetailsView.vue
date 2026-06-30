@@ -65,7 +65,7 @@
 
         <div class="space-between summary-row">
           <span>Payment Status</span>
-          <strong>{{ order.payment_status || '-' }}</strong>
+          <strong>{{ formatPaymentStatus(order.payment_status) }}</strong>
         </div>
 
         <div v-if="order.note" class="vendor-note-box">
@@ -263,6 +263,12 @@ function itemTotal(item) {
   const quantity = Number(item.quantity || 0)
 
   return price * quantity
+}
+
+function formatPaymentStatus(status) {
+  if (status === 'paid_mock') return 'Paid'
+  if (status === 'pending') return 'Pending'
+  return status || '-'
 }
 
 async function saveStatus() {
