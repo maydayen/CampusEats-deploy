@@ -1,37 +1,26 @@
 import { defineStore } from 'pinia'
-import { getMockData } from '../services/mockApi.js'
+import { getMockData, createReviewApi } from '../services/mockApi.js'
 
 export const useReviewStore = defineStore('review', {
   state: () => ({
-    reviews: [],
-    sessionReviews: JSON.parse(sessionStorage.getItem('sessionReviews')) || []
+    reviews: []
   }),
 
   getters: {
     allReviews(state) {
-      return [...state.sessionReviews, ...state.reviews]
+      return state.reviews
     }
   },
 
   actions: {
     async loadReviews() {
-      const mockReviews = await getMockData('reviews.json')
-      this.reviews = mockReviews
+      this.reviews = await getMockData('reviews.json')
     },
 
-    addReview(reviewData) {
-      const newReview = {
-        review_id: Date.now(),
-        order_id: reviewData.order_id,
-        vendor_id: reviewData.vendor_id,
-        user_id: reviewData.user_id,
-        rating: reviewData.rating,
-        comment: reviewData.comment,
-        created_at: new Date().toISOString()
-      }
+    async addReview(reviewData) {
+      const newReview = await createReviewApi(reviewData)
 
-      this.sessionReviews.unshift(newReview)
-      sessionStorage.setItem('sessionReviews', JSON.stringify(this.sessionReviews))
+      this.reviews.unshift(newReview)
 
       return newReview
     },

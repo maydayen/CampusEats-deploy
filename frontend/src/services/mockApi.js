@@ -7,7 +7,8 @@ const fileToEndpoint = {
   'promotions.json': '/promotions',
   'notifications.json': '/notifications',
   'orders.json': '/orders',
-  'orderItems.json': '/order-items'
+  'orderItems.json': '/order-items',
+  'reviews.json': '/reviews'
 }
 
 export async function getMockData(fileName) {
@@ -74,6 +75,23 @@ export async function updateOrderStatusApi(orderId, status) {
 
   if (!response.ok) {
     throw new Error('Unable to update order status')
+  }
+
+  return response.json()
+}
+
+export async function createReviewApi(reviewData) {
+  const response = await fetch(`${API_BASE_URL}/reviews`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(reviewData)
+  })
+
+  if (!response.ok) {
+    const errorData = await response.json().catch(() => ({}))
+    throw new Error(errorData.error || 'Unable to submit review')
   }
 
   return response.json()

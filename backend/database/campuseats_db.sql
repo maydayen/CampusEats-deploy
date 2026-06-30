@@ -219,7 +219,7 @@ INSERT INTO `promotions` (`promotion_id`, `vendor_id`, `title`, `description`, `
     (2, 1, 'Morning Coffee Deal', 'Get 20% off selected coffee before 10 AM.', '20% OFF', '2026-04-01', '2026-04-20', 1, '2026-04-01 10:10:00');
 
 INSERT INTO `orders` (`order_id`, `user_id`, `vendor_id`, `status`, `subtotal`, `service_fee`, `tax_amount`, `total`, `pickup_at`, `created_at`) VALUES
-    (1, 1, 1, 'ready', 13.45, 0.5, 0.0, 13.95, '2026-04-08 12:30:00', '2026-04-08 12:00:00'),
+    (1, 1, 1, 'collected', 13.45, 0.5, 0.0, 13.95, '2026-04-08 12:30:00', '2026-04-08 12:00:00'),
     (2, 1, 2, 'preparing', 21.5, 0.5, 1.85, 23.85, '2026-04-08 13:00:00', '2026-04-08 12:20:00'),
     (3, 1, 3, 'collected', 9.9, 0.5, 1.85, 12.25, '2026-04-08 13:00:00', '2026-04-08 12:20:00');
 
@@ -231,8 +231,7 @@ INSERT INTO `order_items` (`order_item_id`, `order_id`, `menu_item_id`, `quantit
     (17, 3, 5, 1, 9.9);
 
 INSERT INTO `reviews` (`review_id`, `order_id`, `user_id`, `vendor_id`, `rating`, `comment`, `created_at`) VALUES
-    (1, 1, 1, 1, 5, 'Food was ready on time and tasted good.', '2026-04-08 13:00:00'),
-    (2, 2, 1, 2, 4, 'Good food but pickup was slightly delayed.', '2026-04-08 13:30:00');
+    (1, 1, 1, 1, 5, 'Food was ready on time and tasted good.', '2026-04-08 13:00:00');
 
 INSERT INTO `notifications` (`notification_id`, `user_id`, `order_id`, `promotion_id`, `title`, `message`, `type`, `is_read`, `created_at`) VALUES
     (1, 1, 1, NULL, 'Order Ready', 'Your order from The Daily Grind is ready for pickup.', 'order_ready', 0, '2026-04-08 12:25:00'),

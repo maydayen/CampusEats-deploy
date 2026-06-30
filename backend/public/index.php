@@ -142,4 +142,133 @@ $app->get('/api/order-items', function ($request, $response) {
     return $response->withHeader('Content-Type', 'application/json');
 });
 
+$app->get('/api/reviews', function ($request, $response) {
+    $db = getDB();
+
+    $stmt = $db->query("
+        SELECT 
+            r.*,
+            u.name AS customer_name,
+            v.name AS vendor_name
+        FROM reviews r
+        JOIN users u ON r.user_id = u.user_id
+        JOIN vendors v ON r.vendor_id = v.vendor_id
+        ORDER BY r.created_at DESC
+    ");
+
+    $data = $stmt->fetchAll();
+
+    $response->getBody()->write(json_encode($data));
+    return $response->withHeader('Content-Type', 'application/json');
+});
+
+$app->post('/api/reviews', function ($request, $response) {
+    $db = getDB();
+    $data = $request->getParsedBody();
+
+    $orderId = $data['order_id'] ?? null;
+    $userId = $data['user_id'] ?? null;
+    $vendorId = $data['vendor_id'] ?? null;
+    $rating = $data['rating'] ?? null;
+    $comment = $data['comment'] ?? '';
+
+    if (!$orderId || !$userId || !$vendorId || !$rating) {
+        $response->getBody()->write(json_encode([
+            'error' => 'order_id, user_id, vendor_id, and rating are required'
+        ]));
+
+        return $response
+            ->withStatus(400)
+            ->withHeader('Content-Type', 'application/json');
+    }
+
+    if ($rating < 1 || $rating > 5) {
+        $response->getBody()->write(json_encode([
+            'error' => 'Rating must be between 1 and 5'
+        ]));
+
+        return $response
+            ->withStatus(400)
+            ->withHeader('Content-Type', 'application/json');
+    }
+
+    $orderStmt = $db->prepare("
+        SELECT *
+        FROM orders
+        WHERE order_id = ? AND user_id = ? AND vendor_id = ?
+    ");
+    $orderStmt->execute([$orderId, $userId, $vendorId]);
+    $order = $orderStmt->fetch();
+
+    if (!$order) {
+        $response->getBody()->write(json_encode([
+            'error' => 'Order not found'
+        ]));
+
+        return $response
+            ->withStatus(404)
+            ->withHeader('Content-Type', 'application/json');
+    }
+
+    if ($order['status'] !== 'collected') {
+        $response->getBody()->write(json_encode([
+            'error' => 'Review can only be submitted after the order is collected'
+        ]));
+
+        return $response
+            ->withStatus(400)
+            ->withHeader('Content-Type', 'application/json');
+    }
+
+    try {
+        $stmt = $db->prepare("
+            INSERT INTO reviews (
+                order_id,
+                user_id,
+                vendor_id,
+                rating,
+                comment
+            )
+            VALUES (?, ?, ?, ?, ?)
+        ");
+
+        $stmt->execute([
+            $orderId,
+            $userId,
+            $vendorId,
+            $rating,
+            $comment
+        ]);
+
+        $reviewId = $db->lastInsertId();
+
+        $reviewStmt = $db->prepare("
+            SELECT 
+                r.*,
+                u.name AS customer_name,
+                v.name AS vendor_name
+            FROM reviews r
+            JOIN users u ON r.user_id = u.user_id
+            JOIN vendors v ON r.vendor_id = v.vendor_id
+            WHERE r.review_id = ?
+        ");
+        $reviewStmt->execute([$reviewId]);
+        $newReview = $reviewStmt->fetch();
+
+        $response->getBody()->write(json_encode($newReview));
+        return $response
+            ->withStatus(201)
+            ->withHeader('Content-Type', 'application/json');
+
+    } catch (PDOException $e) {
+        $response->getBody()->write(json_encode([
+            'error' => 'This order has already been reviewed'
+        ]));
+
+        return $response
+            ->withStatus(409)
+            ->withHeader('Content-Type', 'application/json');
+    }
+});
+
 $app->run();
