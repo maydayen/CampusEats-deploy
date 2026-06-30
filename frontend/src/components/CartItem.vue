@@ -3,7 +3,9 @@
     <div class="space-between">
       <div>
         <h3 style="margin: 0 0 2px;">{{ item.name }}</h3>
-        <p style="margin: 0; color: var(--muted); font-size: 13px;">RM {{ item.price.toFixed(2) }} each</p>
+        <p style="margin: 0; color: var(--muted); font-size: 13px;">
+          RM {{ Number(item.price || 0).toFixed(2) }} each
+        </p>
       </div>
       <div class="qty-control">
         <button @click="$emit('decrease', item.menu_item_id)">−</button>

@@ -73,7 +73,7 @@
           class="space-between summary-row"
         >
           <span>{{ item.quantity }} × {{ item.name }}</span>
-          <span>RM {{ (item.price * item.quantity).toFixed(2) }}</span>
+          <span>RM {{ (Number(item.price || 0) * Number(item.quantity || 0)).toFixed(2) }}</span>
         </div>
       </div>
 
