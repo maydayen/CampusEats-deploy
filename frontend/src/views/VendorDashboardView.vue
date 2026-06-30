@@ -16,6 +16,13 @@
       <DashboardCard label="Average Prep Time" value="15 min" />
     </div>
 
+    <div class="dashboard-grid">
+      <DashboardCard label="Placed" :value="placedOrders.length" />
+      <DashboardCard label="Preparing" :value="preparingOrders.length" />
+      <DashboardCard label="Ready" :value="readyOrders.length" />
+      <DashboardCard label="Collected" :value="collectedOrders.length" />
+    </div>
+
     <div class="card">
       <div class="space-between">
         <div>
@@ -157,6 +164,30 @@ const activeOrders = computed(() => {
 })
 
 const completedOrders = computed(() => {
+  return vendorOrders.value.filter((order) => {
+    return order.status === 'collected'
+  })
+})
+
+const placedOrders = computed(() => {
+  return vendorOrders.value.filter((order) => {
+    return order.status === 'placed'
+  })
+})
+
+const preparingOrders = computed(() => {
+  return vendorOrders.value.filter((order) => {
+    return order.status === 'preparing'
+  })
+})
+
+const readyOrders = computed(() => {
+  return vendorOrders.value.filter((order) => {
+    return order.status === 'ready'
+  })
+})
+
+const collectedOrders = computed(() => {
   return vendorOrders.value.filter((order) => {
     return order.status === 'collected'
   })
