@@ -44,6 +44,11 @@
         <h3>Customer and Pickup</h3>
 
         <div class="space-between summary-row">
+          <span>Customer</span>
+          <strong>{{ order.customer_name || `Customer #${order.user_id}` }}</strong>
+        </div>
+
+        <div class="space-between summary-row">
           <span>Customer ID</span>
           <strong>#{{ order.user_id }}</strong>
         </div>
