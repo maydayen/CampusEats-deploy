@@ -572,4 +572,24 @@ $app->post('/api/login', function ($request, $response) {
     return $response->withHeader('Content-Type', 'application/json');
 });
 
+$app->get('/api', function ($request, $response) {
+    $data = [
+        'message' => 'CampusEats API is running',
+        'endpoints' => [
+            '/api/vendors',
+            '/api/menu-items',
+            '/api/promotions',
+            '/api/notifications',
+            '/api/orders',
+            '/api/order-items',
+            '/api/reviews',
+            '/api/login',
+            '/api/register'
+        ]
+    ];
+
+    $response->getBody()->write(json_encode($data));
+    return $response->withHeader('Content-Type', 'application/json');
+});
+
 $app->run();
