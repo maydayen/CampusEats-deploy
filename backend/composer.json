@@ -1,0 +1,9 @@
+{
+    "name": "avengers/campuseats-backend",
+    "description": "CampusEats database",
+    "require": {
+        "slim/slim": "^4.15",
+        "slim/psr7": "^1.8",
+        "vlucas/phpdotenv": "^5.6"
+    }
+}
