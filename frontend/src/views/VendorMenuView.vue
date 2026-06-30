@@ -178,11 +178,11 @@ async function loadMenuData() {
 }
 
 const vendor = computed(() => {
-  return vendorStore.vendors.find((item) => item.vendor_id === vendorId)
+  return vendorStore.vendors.find((item) => Number(item.vendor_id) === vendorId)
 })
 
 const vendorMenuItems = computed(() => {
-  return vendorStore.menuItems.filter((item) => item.vendor_id === vendorId)
+  return vendorStore.menuItems.filter((item) => Number(item.vendor_id) === vendorId)
 })
 
 const categories = computed(() => {

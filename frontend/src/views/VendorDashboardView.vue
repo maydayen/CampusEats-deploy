@@ -157,16 +157,24 @@
 
 <script setup>
 import { computed, onMounted, ref } from 'vue'
+import { useRouter } from 'vue-router'
 import Navbar from '../components/Navbar.vue'
 import DashboardCard from '../components/DashboardCard.vue'
 import { useOrderStore } from '../stores/orderStore'
-import { useRouter } from 'vue-router'
 import { useReviewStore } from '../stores/reviewStore.js'
+import { useAuthStore } from '../stores/authStore.js'
 
 const orderStore = useOrderStore()
+const reviewStore = useReviewStore()
+const authStore = useAuthStore()
+const router = useRouter()
+
 const statusFilter = ref('all')
 const reviewFilter = ref('all')
-const reviewStore = useReviewStore()
+
+const vendorId = computed(() => {
+  return Number(authStore.currentUser?.vendor_id)
+})
 
 onMounted(async () => {
   await orderStore.loadOrders()
@@ -174,7 +182,9 @@ onMounted(async () => {
 })
 
 const vendorOrders = computed(() => {
-  return orderStore.orders.filter((order) => order.vendor_id === 1)
+  return orderStore.orders.filter((order) => {
+    return Number(order.vendor_id) === vendorId.value
+  })
 })
 
 const activeOrders = computed(() => {
@@ -257,10 +267,8 @@ const filteredOrders = computed(() => {
   })
 })
 
-const router = useRouter()
-
 const vendorReviews = computed(() => {
-  return reviewStore.getVendorReviews(1)
+  return reviewStore.getVendorReviews(vendorId.value)
 })
 
 const filteredVendorReviews = computed(() => {
@@ -280,7 +288,7 @@ const filteredVendorReviews = computed(() => {
 })
 
 const vendorAverageRating = computed(() => {
-  return reviewStore.getAverageRating(1)
+  return reviewStore.getAverageRating(vendorId.value)
 })
 
 function goToOrderDetails(orderId) {

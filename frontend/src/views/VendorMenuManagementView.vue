@@ -232,8 +232,10 @@ import Navbar from '../components/Navbar.vue'
 import BackButton from '../components/BackButton.vue'
 import DashboardCard from '../components/DashboardCard.vue'
 import { useVendorStore } from '../stores/vendorStore'
+import { useAuthStore } from '../stores/authStore.js'
 
 const vendorStore = useVendorStore()
+const authStore = useAuthStore()
 
 const loading = ref(false)
 const searchText = ref('')
@@ -252,6 +254,10 @@ const newItem = ref({
   image_url: ''
 })
 
+const vendorId = computed(() => {
+  return Number(authStore.currentUser?.vendor_id)
+})
+
 onMounted(async () => {
   loading.value = true
   await vendorStore.loadMenuItems()
@@ -259,15 +265,17 @@ onMounted(async () => {
 })
 
 const vendorItems = computed(() => {
-  return vendorStore.menuItems.filter((item) => item.vendor_id === 1)
+  return vendorStore.menuItems.filter((item) => {
+    return Number(item.vendor_id) === vendorId.value
+  })
 })
 
 const inStockItems = computed(() => {
-  return vendorItems.value.filter((item) => item.in_stock)
+  return vendorItems.value.filter((item) => Number(item.in_stock) === 1 || item.in_stock === true)
 })
 
 const outOfStockItems = computed(() => {
-  return vendorItems.value.filter((item) => !item.in_stock)
+  return vendorItems.value.filter((item) => Number(item.in_stock) === 0 || item.in_stock === false)
 })
 
 const categories = computed(() => {
@@ -279,20 +287,26 @@ const filteredItems = computed(() => {
   const keyword = searchText.value.toLowerCase().trim()
 
   return vendorItems.value.filter((item) => {
+    const name = item.name || ''
+    const description = item.description || ''
+    const category = item.category || ''
+
     const matchesSearch =
       !keyword ||
-      item.name.toLowerCase().includes(keyword) ||
-      item.description.toLowerCase().includes(keyword) ||
-      item.category.toLowerCase().includes(keyword)
+      name.toLowerCase().includes(keyword) ||
+      description.toLowerCase().includes(keyword) ||
+      category.toLowerCase().includes(keyword)
 
     const matchesCategory =
       selectedCategory.value === 'All' ||
-      item.category === selectedCategory.value
+      category === selectedCategory.value
+
+    const isInStock = Number(item.in_stock) === 1 || item.in_stock === true
 
     const matchesStock =
       stockFilter.value === 'all' ||
-      (stockFilter.value === 'in_stock' && item.in_stock) ||
-      (stockFilter.value === 'out_of_stock' && !item.in_stock)
+      (stockFilter.value === 'in_stock' && isInStock) ||
+      (stockFilter.value === 'out_of_stock' && !isInStock)
 
     return matchesSearch && matchesCategory && matchesStock
   })
@@ -360,7 +374,7 @@ function saveNewItem() {
 
   const item = {
     menu_item_id: Date.now(),
-    vendor_id: 1,
+    vendor_id: vendorId.value,
     name: newItem.value.name.trim(),
     description: newItem.value.description.trim() || 'No description provided.',
     category: newItem.value.category.trim(),

@@ -179,17 +179,23 @@ import Navbar from '../components/Navbar.vue'
 import BackButton from '../components/BackButton.vue'
 import { useOrderStore } from '../stores/orderStore.js'
 import { useVendorStore } from '../stores/vendorStore.js'
+import { useAuthStore } from '../stores/authStore.js'
 import { getMockData } from '../services/mockApi.js'
 
 const route = useRoute()
 const orderStore = useOrderStore()
 const vendorStore = useVendorStore()
+const authStore = useAuthStore()
 
 const loading = ref(false)
 const orderItemsData = ref([])
 const selectedStatus = ref('placed')
 
 const orderId = Number(route.params.id)
+
+const vendorId = computed(() => {
+  return Number(authStore.currentUser?.vendor_id)
+})
 
 onMounted(async () => {
   loading.value = true
@@ -206,7 +212,12 @@ onMounted(async () => {
 })
 
 const order = computed(() => {
-  return orderStore.orders.find((item) => Number(item.order_id) === orderId)
+  return orderStore.orders.find((item) => {
+    return (
+      Number(item.order_id) === orderId &&
+      Number(item.vendor_id) === vendorId.value
+    )
+  })
 })
 
 const orderItems = computed(() => {
@@ -255,6 +266,8 @@ function itemTotal(item) {
 }
 
 async function saveStatus() {
+  if (!order.value) return
+
   await orderStore.updateOrderStatus(order.value.order_id, selectedStatus.value)
 }
 </script>
