@@ -9,11 +9,13 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@capacitor/android": "^8.4.1",
+    "@capacitor/cli": "^8.4.1",
+    "@capacitor/core": "^8.4.1",
     "@vitejs/plugin-vue": "latest",
+    "pinia": "latest",
     "vite": "latest",
     "vue": "latest",
-    "vue-router": "latest",
-    "pinia": "latest"
-  },
-  "devDependencies": {}
+    "vue-router": "latest"
+  }
 }
