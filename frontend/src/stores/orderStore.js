@@ -31,21 +31,7 @@ export const useOrderStore = defineStore('orders', {
 
     async updateOrderStatus(orderId, status) {
       try {
-        const response = await fetch(`http://localhost:8000/api/orders/${orderId}/status`, {
-          method: 'PUT',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            status
-          })
-        })
-
-        if (!response.ok) {
-          throw new Error('Failed to update order status.')
-        }
-
-        const updatedOrder = await response.json()
+        const updatedOrder = await updateOrderStatusApi(orderId, status)
 
         const order = this.orders.find((item) => {
           return Number(item.order_id) === Number(orderId)
